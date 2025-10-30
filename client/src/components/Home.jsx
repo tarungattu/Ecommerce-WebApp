@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import AppContext from "../Context/Context";
 import unplugged from "../assets/unplugged.png"
 

@@ -11,6 +11,7 @@ import UpdateProduct from "./components/UpdateProduct";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from "./components/Login";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           <Route path="product/:id" element={<Product  />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/update/:id" element={<UpdateProduct />} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </BrowserRouter>
     </AppProvider>

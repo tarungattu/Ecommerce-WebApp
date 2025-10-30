@@ -1179,3 +1179,161 @@ font-size: 14px;
   height: 1px;
   background: var(--hr_line_card)
 }
+
+/* Login */
+.login-text {
+  color: white;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+}
+
+/* This is the full-page background that centers the form */
+.login-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f7f6; /* A very light, soft gray-green */
+}
+
+/* This is the white box for the form itself */
+.login-form-container {
+  background-color: #ffffff;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+}
+
+/* Make sure we handle mobile screens */
+@media (max-width: 500px) {
+  .login-form-container {
+    padding: 2rem 1.5rem;
+    max-width: 90vw;
+  }
+}
+
+/* The "Sign In" title */
+.login-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1.5rem; /* Reduced margin to make room for messages */
+}
+
+/* --- NEW STYLES --- */
+
+/* Container for messages */
+.message-container {
+  min-height: 1.5rem; /* Reserve space so layout doesn't jump */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Error message style */
+.error-message {
+  color: #d93025; /* Red */
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Success message style */
+.success-message {
+  color: #1a73e8; /* Green (or a nice blue) */
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* --- END NEW STYLES --- */
+
+
+/* This wraps each label and input */
+.input-group {
+  margin-bottom: 1.25rem;
+}
+
+/* Style for the labels "User Name", "Password" */
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Style for the input fields */
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box; /* Important for padding to work correctly */
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+/* Highlight effect when you click/tab into an input */
+.input-group input:focus {
+  outline: none;
+  border-color: #007bff; /* A nice blue */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* --- NEW STYLE for disabled input --- */
+.input-group input:disabled {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+/* The main submit button */
+.login-button {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  margin-top: 0.5rem;
+}
+
+/* Darker blue when you hover over the button */
+.login-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* --- NEW STYLE for disabled button --- */
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+/* The "Forgot password?" link */
+.login-footer-links {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.login-footer-links a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: text-decoration 0.2s;
+}
+
+.login-footer-links a:hover {
+  text-decoration: underline;
+}

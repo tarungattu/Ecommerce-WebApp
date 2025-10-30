@@ -260,7 +260,7 @@
 
 import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../Context/Context";
-import axios from "axios";
+import axios from "../axios";
 import CheckoutPopup from "./CheckoutPopup";
 import { Button } from 'react-bootstrap';
 

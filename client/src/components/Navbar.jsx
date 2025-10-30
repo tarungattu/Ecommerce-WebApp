@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import Home from "./Home"
-import axios from "axios";
+import axios from "../axios";
 // import { json } from "react-router-dom";
 // import { BiSunFill, BiMoon } from "react-icons/bi";
+import AppContext from "../Context/Context";
 
 const Navbar = ({ onSelectCategory, onSearch }) => {
   const getInitialTheme = () => {
@@ -16,6 +18,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
   const [noResults, setNoResults] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
   const [showSearchResults,setShowSearchResults] = useState(false)
+  const { logout, jwt } = useContext(AppContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -51,34 +54,6 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
     }
   };
 
-  
-  // const handleChange = async (value) => {
-  //   setInput(value);
-  //   if (value.length >= 1) {
-  //     setShowSearchResults(true);
-  //     try {
-  //       let response;
-  //       if (!isNaN(value)) {
-  //         // Input is a number, search by ID
-  //         response = await axios.get(`http://localhost:8080/api/products/search?id=${value}`);
-  //       } else {
-  //         // Input is not a number, search by keyword
-  //         response = await axios.get(`http://localhost:8080/api/products/search?keyword=${value}`);
-  //       }
-
-  //       const results = response.data;
-  //       setSearchResults(results);
-  //       setNoResults(results.length === 0);
-  //       console.log(results);
-  //     } catch (error) {
-  //       console.error("Error searching:", error.response ? error.response.data : error.message);
-  //     }
-  //   } else {
-  //     setShowSearchResults(false);
-  //     setSearchResults([]);
-  //     setNoResults(false);
-  //   }
-  // };
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -127,26 +102,26 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/">
+                  <Link className="nav-link active" aria-current="page" to="/">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/add_product">
+                  <Link className="nav-link" to="/add_product">
                     Add Product
-                  </a>
+                  </Link>
                 </li>
 
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="/"
+                    to="/"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     Categories
-                  </a>
+                  </Link>
 
                   <ul className="dropdown-menu">
                     {categories.map((category) => (
@@ -172,14 +147,31 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                 )}
               </button>
               <div className="d-flex align-items-center cart">
-                <a href="/cart" className="nav-link text-dark">
+                <Link to="/cart" className="nav-link text-dark">
                   <i
                     className="bi bi-cart me-2"
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     Cart
                   </i>
-                </a>
+                </Link>
+                {jwt ? (<button
+                          className="btn btn-outline-danger ms-2"
+                          onClick={() => {
+                            logout();
+                            localStorage.removeItem("jwt");
+                            localStorage.removeItem("userId");
+                            window.location.href = "/login"; // redirect to login page
+                          }}
+                        >
+                          Logout
+                        </button>
+                      ) : (
+                        <Link to="/login" className="btn btn-outline-primary ms-2">
+                          Login
+                        </Link>
+                      )}
+
                 {/* <form className="d-flex" role="search" onSubmit={handleSearch} id="searchForm"> */}
                 <input
                   className="form-control me-2"
@@ -196,9 +188,9 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                     {searchResults.length > 0 ? (  
                         searchResults.map((result) => (
                           <li key={result.id} className="list-group-item">
-                            <a href={`/product/${result.id}`} className="search-result-link">
+                            <Link to={`/product/${result.id}`} className="search-result-link">
                             <span>{result.name}</span>
-                            </a>
+                            </Link>
                           </li>
                         ))
                     ) : (

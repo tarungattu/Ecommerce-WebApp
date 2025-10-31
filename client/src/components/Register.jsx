@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import { useNavigate, Link } from "react-router-dom";
-import { useContext } from "react";
-import AppContext from "../Context/Context";
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(AppContext);
 
   // Theme management - just initialize theme from localStorage
   useEffect(() => {
@@ -20,21 +18,30 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess(false);
 
     try {
-      const response = await axios.post("http://localhost:8080/auth/login", {
+      const response = await axios.post("http://localhost:8080/auth/register", {
         username,
         password,
       });
 
-      const { jwt, userId } = response.data;
-      login(jwt, userId);
-      navigate("/");
+      const { id, username: registeredUsername } = response.data;
+      
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+
     } catch (err) {
-      if (err.response && err.response.status === 403) {
-        setError("Invalid username or password");
+      if (err.response) {
+        if (err.response.status === 400 || err.response.status === 409) {
+          setError("Username already exists. Please choose a different username.");
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
       } else {
-        setError("Something went wrong. Please try again.");
+        setError("Network error. Please check your connection and try again.");
       }
     }
   };
@@ -42,7 +49,13 @@ const Login = () => {
   return (
     <div className="login-page-container">
       <div className="login-form-container">
-        <h2 className="login-title">Sign In</h2>
+        <h2 className="login-title">Sign Up</h2>
+
+        {success && (
+          <p style={{ color: "green", marginBottom: "1rem" }}>
+            Registration successful! Redirecting to login...
+          </p>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -70,11 +83,11 @@ const Login = () => {
           {error && <p style={{ color: "red" }}>{error}</p>}
 
           <button type="submit" className="login-button">
-            Submit
+            Register
           </button>
 
           <div className="login-footer-links">
-            <Link to="/register">Don't have an account? Register here</Link>
+            <Link to="/login">Already have an account? Sign in</Link>
           </div>
         </form>
       </div>
@@ -82,4 +95,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

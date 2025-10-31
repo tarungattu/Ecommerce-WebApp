@@ -5,13 +5,14 @@ import Navbar from "./components/Navbar";
 import Cart from "./components/Cart";
 import AddProduct from "./components/AddProduct";
 import Product from "./components/Product";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AppProvider } from "./Context/Context";
 import UpdateProduct from "./components/UpdateProduct";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./components/Login";
+import Register from "./components/Register";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/update/:id" element={<UpdateProduct />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
         </Routes>
       </BrowserRouter>
     </AppProvider>
